@@ -27,7 +27,7 @@ pip install -e .
 
 Usage Examples
 1. Add a Task
-kumbi add "Finish reading Chapter 17 of Fluent Python"
+kumbi add "workout"
 
 2. List Tasks
 List all recorded entries, or narrow your view by passing an optional status flag:
@@ -35,7 +35,7 @@ kumbi list
 kumbi list in-progress
 
 3. Update or Mark a Task Status
-kumbi update 1 "Finish reading Chapter 17 and practice"
+kumbi update 1 "practice python"
 kumbi mark 1 done
 
 4. Delete a Task
