@@ -8,22 +8,34 @@ def read_task() -> dict[int, Task]:
     file_path = current_dir/"task.json"
     if os.path.exists(file_path) and os.path.getsize(file_path) > 0:
         with open(file_path, 'r', encoding='utf-8') as file:
-            json_data: dict[str, dict] = json.load(file)
-            return {v['id']: __dict_to_task(v) for v in json_data.values()}
-
+            raw_data = json.load(file, object_hook=__json_to_task)
+            return {v.id: v for v in raw_data.values()}
     return {}
 
 
 def write_task(data: dict[int, Task]):
     current_dir = Path(__file__).parent
     file_path = current_dir/"task.json"
-    if os.path.exists(file_path):
-        with open(file_path, 'w', encoding='utf-8') as file:
-            json.dump({v.id:__task_to_dict(v)  for v in data.values()}, file)
+    with open(file_path, 'w', encoding='utf-8') as file:
+        serialized = {
+            k: {
+                "id": v.id,
+                "description": v.description,
+                "status": v.status.value,
+                "createdAt": v.createdAt,
+                "updatedAt": v.updatedAt
+            }
+            for k, v in data.items()
+        }
+        json.dump(serialized, file, indent=4, ensure_ascii=False)
 
-def __dict_to_task(task: dict) -> Task:
-    return Task(task['id'], task['description'], Status(task['status']), task['createdAt'], task['updatedAt'])
-
-def __task_to_dict(task: Task) -> dict:
-    return {"id": task.id, "description": task.description, "status": task.status.value, "createdAt": task.createdAt, "updatedAt": task.updatedAt}
-
+def __json_to_task(dct: dict) -> Task:
+    if 'id' in dct and 'status' in dct: 
+        return Task(
+            id=int(dct['id']),
+            description=dct['description'],
+            status=Status(dct['status']),
+            createdAt=dct['createdAt'],
+            updatedAt=dct['updatedAt']
+        )
+    return dct
