@@ -15,5 +15,5 @@ def get_cli_input() -> argparse.Namespace:
     mark_paraser.add_argument(Argument.ID.value, type=int, help="The ID of the task you want to mark")
     mark_paraser.add_argument(Argument.STATUS.value, type=str, help="The status you want to mark the task with")
     list_paraser = sub_paraser.add_parser(Command.LIST.value, help="List all the tasks. You can also list by status ('in-progress', 'done', 'todo)")
-    list_paraser.add_argument(Argument.STATUS.value, nargs="?", type=str, help="Filiter by the status")
+    list_paraser.add_argument(Argument.STATUS.value, nargs="?", type=str, help="Filiter by the status [todo, in-progress, done]")
     return paraser.parse_args()
