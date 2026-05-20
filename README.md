@@ -1,6 +1,6 @@
 # Kumbi Task Tracker
 
-A professional, decoupled Python Command Line Interface (CLI) application designed to track day-to-day tasks. Built following modern pythonic architectures, it relies on structured data contracts, separation of concerns, and native system pathing.
+A decoupled Python Command Line Interface (CLI) application designed to track day-to-day tasks. Built following modern pythonic architectures, it relies on structured data contracts, separation of concerns, and native system pathing.
 
 ## Project Structure
 kumbi_project/
